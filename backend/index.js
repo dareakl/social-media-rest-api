@@ -5,6 +5,34 @@ app.get("/", (req, res) => {
   res.send("hello world");
 });
 
+const posts = [
+  { id: 1, title: "First Post", content: "This is first post content" },
+  { id: 2, title: "Second Post", content: "This is second post content" },
+  { id: 3, title: "Third Post", content: "This is third post content" },
+];
+
+app.get("/posts", (req, res) => {
+  res.json(posts);
+});
+
+app.get("/posts/:id", (req, res) => {
+  const postId = parseInt(req.params.id);
+  const post = posts.find((p) => p.id === postId);
+
+  if (!post) {
+    return res.status(404).json({ error: "post not found" });
+  }
+  res.send(post);
+});
+
+app.post("/posts", (req, res) => {
+  const title = "new post";
+  const content = "this is new post";
+  const newPost = { id: posts.length + 1, title, content };
+  posts.push(newPost);
+
+  res.status(201).json(newPost);
+});
 app.listen(6001, () => {
   console.log("Server is running");
 });
