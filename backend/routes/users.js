@@ -9,7 +9,9 @@ const {
   getBlockedUserController,
   deleteUserController,
   searchUserController,
+  uploadProfilePictureController,
 } = require("../controllers/userController");
+const upload = require("../middlewares/upload");
 const router = express.Router();
 
 //GET USER
@@ -38,5 +40,12 @@ router.delete("/delete/:userId", deleteUserController);
 
 //SEARCH USER
 router.get("/search/:query", searchUserController);
+
+//UPDATE PROFILE PICTURE
+router.put(
+  "/update-profile-picture/:userId",
+  upload.single("profilePicture"),
+  uploadProfilePictureController
+);
 
 module.exports = router;
