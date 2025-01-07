@@ -10,6 +10,7 @@ const {
   deleteUserController,
   searchUserController,
   uploadProfilePictureController,
+  uploadCoverPictureController,
 } = require("../controllers/userController");
 const upload = require("../middlewares/upload");
 const router = express.Router();
@@ -46,6 +47,13 @@ router.put(
   "/update-profile-picture/:userId",
   upload.single("profilePicture"),
   uploadProfilePictureController
+);
+
+//UPDATE COVER PICTURE
+router.put(
+  "/update-cover-picture/:userId",
+  upload.single("coverPicture"),
+  uploadCoverPictureController
 );
 
 module.exports = router;
