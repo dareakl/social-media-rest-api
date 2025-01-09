@@ -56,4 +56,46 @@ const createPostWithImagesController = async (req, res, next) => {
   }
 };
 
-module.exports = { createPostController, createPostWithImagesController };
+const updatePostController = async (req, res, next) => {
+  const { postId } = req.params;
+  const { caption } = req.body;
+
+  try {
+    const postToUpdate = await Post.findById(postId);
+    if (!postToUpdate) {
+      throw new CustomError("Post not found", 404);
+    }
+    postToUpdate.caption = caption || postToUpdate.caption;
+    await postToUpdate.save();
+    res
+      .status(200)
+      .json({ message: "Post Update Successfully!", post: postToUpdate });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getPostsController = async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new CustomError("User not found!", 404);
+    }
+
+    const blockedUserIds = user.blockList.map((id) => id.toString());
+
+    const allPosts = await Post.find({
+      user: { $nin: blockedUserIds },
+    }).populate("user", "username fullName profilePicture");
+    res.status(200).json({ posts: allPosts });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = {
+  createPostController,
+  createPostWithImagesController,
+  updatePostController,
+  getPostsController,
+};
