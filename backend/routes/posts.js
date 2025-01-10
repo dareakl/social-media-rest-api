@@ -6,6 +6,9 @@ const {
   createPostWithImagesController,
   updatePostController,
   getPostsController,
+  getUserPostsController,
+  deletePostController,
+  likePostController,
 } = require("../controllers/postController");
 
 //CREATE POST
@@ -23,5 +26,14 @@ router.put("/update/:postId", updatePostController);
 
 //GET ALL POSTS
 router.get("/all/:userId", getPostsController);
+
+//GET USER POSTS
+router.get("/user/:userId", getUserPostsController);
+
+//DELETE POST
+router.delete("/delete/:postId", deletePostController);
+
+//LIKE POST
+router.post("/like/:postId", likePostController);
 
 module.exports = router;
