@@ -6,6 +6,11 @@ const {
   updateReplyCommentController,
   getCommentsByPostController,
   deleteCommentController,
+  deleteReplyCommentController,
+  likeCommentController,
+  dislikeCommentController,
+  likeReplyCommentController,
+  dislikeReplyCommentController,
 } = require("../controllers/commentController");
 const router = express.Router();
 
@@ -26,5 +31,26 @@ router.get("/post/:postId", getCommentsByPostController);
 
 //DELETE A COMMENT
 router.delete("/delete/:commentId", deleteCommentController);
+
+//DELETE REPLY COMMENT
+router.delete(
+  "/delete/:commentId/replies/:replyId",
+  deleteReplyCommentController
+);
+
+//LIKE A COMMENT
+router.post("/like/:commentId", likeCommentController);
+
+//DISLIKE COMMENT
+router.post("/dislike/:commentId", dislikeCommentController);
+
+//LIKE A REPLY COMMENT
+router.post("/:commentId/replies/like/:replyId", likeReplyCommentController);
+
+//DISLIKE A REPLY COMMENT
+router.post(
+  "/:commentId/replies/dislike/:replyId",
+  dislikeReplyCommentController
+);
 
 module.exports = router;
