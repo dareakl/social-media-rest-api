@@ -4,6 +4,8 @@ const {
   createCommentReplyController,
   updateCommentController,
   updateReplyCommentController,
+  getCommentsByPostController,
+  deleteCommentController,
 } = require("../controllers/commentController");
 const router = express.Router();
 
@@ -18,5 +20,11 @@ router.put("/update/:commentId", updateCommentController);
 
 //UPDATE REPLY COMMENT
 router.put("/update/:commentId/replies/:replyId", updateReplyCommentController);
+
+//GET ALL POST COMMENTS
+router.get("/post/:postId", getCommentsByPostController);
+
+//DELETE A COMMENT
+router.delete("/delete/:commentId", deleteCommentController);
 
 module.exports = router;
