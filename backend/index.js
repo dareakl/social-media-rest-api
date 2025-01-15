@@ -19,12 +19,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/auth", authRoute);
-app.use("/api/user", userRoute);
-app.use("/api/post", postRoute);
-app.use("/api/comment", commentRoute);
-app.use("/api/story", storyRoute);
-app.use("/api/conversation", conversationRoute);
-app.use("/api/message", messageRoute);
+app.use("/api/user", verifyToken, userRoute);
+app.use("/api/post", verifyToken, postRoute);
+app.use("/api/comment", verifyToken, commentRoute);
+app.use("/api/story", verifyToken, storyRoute);
+app.use("/api/conversation", verifyToken, conversationRoute);
+app.use("/api/message", verifyToken, messageRoute);
 
 app.use(errorHandler);
 
