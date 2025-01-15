@@ -8,8 +8,11 @@ const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const commentRoute = require("./routes/comments");
 const storyRoute = require("./routes/stories");
+const conversationRoute = require("./routes/conversations");
+const messageRoute = require("./routes/messages");
 const path = require("path");
 const { errorHandler } = require("./middlewares/error");
+const verifyToken = require("./middlewares/verifyToken");
 
 dotenv.config();
 app.use(express.json());
@@ -20,6 +23,8 @@ app.use("/api/user", userRoute);
 app.use("/api/post", postRoute);
 app.use("/api/comment", commentRoute);
 app.use("/api/story", storyRoute);
+app.use("/api/conversation", conversationRoute);
+app.use("/api/message", messageRoute);
 
 app.use(errorHandler);
 
