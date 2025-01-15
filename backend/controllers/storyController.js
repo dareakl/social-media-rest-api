@@ -71,9 +71,25 @@ const deleteStoryController = async (req, res) => {
   }
 };
 
+const deleteStoriesController = async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new CustomError("No user found", 404);
+    }
+    await Story.deleteMany({ user: userId });
+    res.status(200).json({ message: "Stories has been deleted!" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createStoryController,
   getStoriesController,
   getUserStoriesController,
   deleteStoryController,
+  deleteStoriesController,
 };

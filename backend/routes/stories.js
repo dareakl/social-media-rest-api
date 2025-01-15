@@ -4,6 +4,7 @@ const {
   getStoriesController,
   getUserStoriesController,
   deleteStoryController,
+  deleteStoriesController,
 } = require("../controllers/storyController");
 const upload = require("../middlewares/upload");
 const router = express.Router();
@@ -19,5 +20,8 @@ router.get("/user/:userId", getUserStoriesController);
 
 //DELETE A STORY
 router.delete("/delete/:storyId", deleteStoryController);
+
+//DELETE ALL STORIES
+router.delete("/delete/stories/:userId", deleteStoriesController);
 
 module.exports = router;
