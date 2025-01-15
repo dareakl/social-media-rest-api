@@ -7,6 +7,7 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const commentRoute = require("./routes/comments");
+const storyRoute = require("./routes/stories");
 const path = require("path");
 const { errorHandler } = require("./middlewares/error");
 
@@ -18,6 +19,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/post", postRoute);
 app.use("/api/comment", commentRoute);
+app.use("/api/story", storyRoute);
 
 app.use(errorHandler);
 
